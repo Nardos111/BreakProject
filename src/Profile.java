@@ -69,4 +69,14 @@ public class Profile {
     public AlarmSound getAlarmSound() {
         return alarmSound;
     }
+
+
+    public static void main(String[] args) throws InterruptedException {
+        Profile profile = new Profile("Work", Color.CYAN, 1, 1, 15, new AlarmSound());
+        Pomodoro pomodoro = new Pomodoro(profile);
+        pomodoro.startWork();
+        pomodoro.startBreak();
+
+
+    }
 }
