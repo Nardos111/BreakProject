@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
-import java.io.*;
+
 public class Pomodoro {
     String id;
     Profile profile;
