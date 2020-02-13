@@ -18,7 +18,7 @@ public class Profile {
         this.profileColor = profileColor;
         this.sessionTimeInMins = sessionTimeInMins;
         this.breakTimeInMins = breakTimeInMins;
-        this.longBreakTimeInMins = longBreakTimeInMins;
+//        this.longBreakTimeInMins = longBreakTimeInMins;
         this.alarmSound = alarmSound;
     }
 
@@ -37,10 +37,10 @@ public class Profile {
     public void setBreakTimeInMins(int breakTimeInMins) {
         this.breakTimeInMins = breakTimeInMins;
     }
-
-    public void setLongBreakTimeInMins(int longBreakTimeInMins) {
-        this.longBreakTimeInMins = longBreakTimeInMins;
-    }
+//TODO Long Break Time integration
+//    public void setLongBreakTimeInMins(int longBreakTimeInMins) {
+//        this.longBreakTimeInMins = longBreakTimeInMins;
+//    }
 
     public void setAlarmSound(AlarmSound alarmSound) {
         this.alarmSound = alarmSound;
