@@ -22,6 +22,15 @@ public class Profile {
         this.alarmSound = alarmSound;
     }
 
+    public Profile() {
+        this.profileName = "Default";
+        this.profileColor = Color.red;
+        this.sessionTimeInMins = 25;
+        this.breakTimeInMins = 5;
+//        this.longBreakTimeInMins = longBreakTimeInMins;
+        this.alarmSound = null;
+    }
+
     public void setProfileName(String profileName) {
         this.profileName = profileName;
     }

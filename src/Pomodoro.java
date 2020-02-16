@@ -12,7 +12,7 @@ public class Pomodoro {
     LocalDateTime timeEnded;
     LocalDateTime breakTimeStarted;
     LocalDateTime breakTimeEnded;
-    Timer timer = new Timer();
+    static Timer timer = new Timer();
     TimerTask task = new WorkHelper(this);
     TimerTask taskBreak = new BreakHelper(this);
 
@@ -20,6 +20,12 @@ public class Pomodoro {
     public Pomodoro(Profile profile) {
         this.id = UUID.randomUUID().toString();
         this.profile = profile;
+        this.dateCreated = LocalDateTime.now();
+    }
+
+    public Pomodoro() {
+        this.id = UUID.randomUUID().toString();
+        this.profile = new Profile();
         this.dateCreated = LocalDateTime.now();
     }
 
@@ -62,7 +68,6 @@ public class Pomodoro {
         int sessionTime = 1000 * 60 * profile.getSessionTimeInMins();
         timer.schedule(task, sessionTime);
 
-
     }
 
     public void stopWork() {
@@ -77,6 +82,7 @@ public class Pomodoro {
         this.timeStarted.format(format);
         int breakTime = 1000 * 60 * profile.getBreakTimeInMins();
         timer.schedule(taskBreak, breakTime);
+
 
     }
 
