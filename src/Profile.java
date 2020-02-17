@@ -1,3 +1,5 @@
+import javafx.fxml.FXML;
+
 import java.awt.*;
 
 public class Profile {
@@ -9,17 +11,14 @@ public class Profile {
     int longBreakTimeInMins;
     AlarmSound alarmSound;
 
-    Profile(String profileName, Color profileColor, int sessionTimeInMins, int breakTimeInMins, int longBreakTimeInMins){
 
-    }
 
-    public Profile(String profileName, Color profileColor, int sessionTimeInMins, int breakTimeInMins, int longBreakTimeInMins, AlarmSound alarmSound) {
+    public Profile(String profileName, Color profileColor, int sessionTimeInMins, int breakTimeInMins, int longBreakTimeInMins) {
         this.profileName = profileName;
         this.profileColor = profileColor;
         this.sessionTimeInMins = sessionTimeInMins;
         this.breakTimeInMins = breakTimeInMins;
-//        this.longBreakTimeInMins = longBreakTimeInMins;
-        this.alarmSound = alarmSound;
+        this.longBreakTimeInMins = longBreakTimeInMins;
     }
 
     public Profile() {
@@ -27,7 +26,6 @@ public class Profile {
         this.profileColor = Color.red;
         this.sessionTimeInMins = 25;
         this.breakTimeInMins = 5;
-//        this.longBreakTimeInMins = longBreakTimeInMins;
         this.alarmSound = null;
     }
 
@@ -79,13 +77,5 @@ public class Profile {
         return alarmSound;
     }
 
-
-    public static void main(String[] args) throws InterruptedException {
-        Profile profile = new Profile("Work", Color.CYAN, 1, 1, 15, new AlarmSound());
-        Pomodoro pomodoro = new Pomodoro(profile);
-        pomodoro.startWork();
-        pomodoro.startBreak();
-
-
-    }
 }
+

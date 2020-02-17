@@ -8,50 +8,52 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <ToolBar style="-fx-background-color: white;">
-              <items>
-                  <MenuBar prefHeight="20.0" prefWidth="196.0">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Profile" >
-                        <items>
-                              <MenuItem fx:id="defaultProfile" mnemonicParsing="false" text="Default Profile" />
-                        </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="Stat">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
-                        </items>
-                      </Menu>
-                    </menus>
-                  </MenuBar>
-              </items>
-            </ToolBar>
+            <MenuBar prefHeight="20.0" prefWidth="196.0" style="-fx-background-color: white;">
+              <menus>
+                <Menu fx:id="profileMenu" mnemonicParsing="false" text="Profile">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#defaultProfileHandler" text="Default Profile" />
+                        <MenuItem fx:id="profile" mnemonicParsing="false" onAction="#profile1Handler" text="Profile 1" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Stat">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
          </children>
       </HBox>
    </top>
    <bottom>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="statusLabel"  alignment="CENTER" prefHeight="17.0" prefWidth="701.0" text="FOCUS" textAlignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <AnchorPane prefHeight="100.0" prefWidth="604.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                  <AnchorPane prefHeight="96.0" prefWidth="600.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                      <children>
-                        <ProgressBar blendMode="COLOR_DODGE" layoutX="119.0" layoutY="30.0" prefHeight="44.0" prefWidth="358.0" progress="0.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="30.0" />
+                        <ProgressBar fx:id="progress" layoutX="39.0" prefHeight="50.0" prefWidth="511.0" progress="0.0" style="-fx-border-color: white;" />
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="button" layoutX="45.0" layoutY="27.0" mnemonicParsing="false" onAction="#buttonHandle" prefHeight="91.0" prefWidth="131.0" text="Play">
+                  <Button layoutX="45.0" layoutY="27.0" mnemonicParsing="false" onAction="#playButton" prefHeight="91.0" prefWidth="131.0" style="-fx-background-color: white;" text="Play">
                      <font>
                         <Font name="Calibri" size="29.0" />
                      </font></Button>
-                  <Button fx:id="pauseButton" layoutX="224.0" layoutY="27.0" mnemonicParsing="false" onAction="#pauseButtonHandler" prefHeight="91.0" prefWidth="131.0" text="Pause">
+                  <Button fx:id="pauseButton" layoutX="224.0" layoutY="27.0" mnemonicParsing="false" onAction="#pauseButton" prefHeight="91.0" prefWidth="131.0" style="-fx-background-color: white;" text="Pause">
                      <font>
                         <Font name="Calibri" size="29.0" />
                      </font></Button>
-                  <Button alignment="CENTER" layoutX="398.0" layoutY="27.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="131.0" text="Skip">
+                  <Button fx:id="skipContinueButton" alignment="CENTER" layoutX="398.0" layoutY="27.0" mnemonicParsing="false" onAction="#skipContinueButtonHandler" prefHeight="91.0" prefWidth="131.0" style="-fx-background-color: white;" text="Skip">
                      <font>
                         <Font name="Calibri" size="29.0" />
                      </font></Button>
@@ -63,9 +65,9 @@
    <center>
       <HBox prefHeight="165.0" prefWidth="437.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="timerLabel" alignment="CENTER" prefHeight="141.0" prefWidth="287.0" style="-fx-font-family: Raleway Regular;" text="Timer">
+            <Label fx:id="timerLabel" alignment="CENTER" prefHeight="141.0" prefWidth="287.0" style="-fx-font-family: Sans;" textAlignment="CENTER">
                <font>
-                  <Font name="Bodoni MT Black" size="96.0" />
+                  <Font name="Segoe UI" size="96.0" />
                </font>
             </Label>
          </children>
