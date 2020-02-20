@@ -16,6 +16,7 @@ import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
 import javax.print.DocFlavor;
+import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,13 +37,13 @@ public class Controller implements Initializable {
     ProgressBar progress = new ProgressBar();
     TrayNotification tray;
 
-
+    ProfileMaker x = new ProfileMaker();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //To check where the status of the student is
-        
+
         //TODO: Database code for retrieving all the profiles
         this.tray = new TrayNotification();
         pomodoro = new Pomodoro();
@@ -64,26 +65,27 @@ public class Controller implements Initializable {
     }
 
     public void profile1Handler() {
-            timeline.stop();
-            progressTimeline.stop();
-            Profile profile = new Profile("Profile 1", Color.yellow, 45, 15, 30);
-            pomodoro = new Pomodoro(profile);
-            prepare();
-        }
+        timeline.stop();
+        progressTimeline.stop();
+        Profile profile = new Profile("Profile 1", Color.yellow, 45, 15, 30);
+        pomodoro = new Pomodoro(profile);
+        prepare();
+    }
 
-    public void setTimerLabelText(String str){
+    public void setTimerLabelText(String str) {
         timerLabelText.set(str);
     }
+
     public void setTimerLabelText(int remainingTime) {
         int mins = remainingTime / 60;
         int secs = remainingTime % 60;
         timerLabelText.set(String.format("%02d:%02d", mins, secs));
     }
 
-    public void playButton(ActionEvent actionEvent) {
-        if (timeline.getStatus() == Animation.Status.RUNNING){}
+    public void playButton(ActionEvent actionEvent) throws Exception {
 
-        else {
+        if (timeline.getStatus() == Animation.Status.RUNNING) {
+        } else {
             skipContinueButton.setText("Skip");
             if (timeline != null && timeline.getStatus() != Animation.Status.RUNNING) {
                 timeline = new Timeline();
@@ -126,10 +128,15 @@ public class Controller implements Initializable {
         prepare();
     }
 
+    public void addNewHandler(ActionEvent actionEvent) throws Exception {
+
+        x.displayWindow();
+
+    }
+
     public void skipContinueButtonHandler(ActionEvent actionEvent) {
 
-        if (timeline != null && timeline.getStatus() == Animation.Status.RUNNING)
-        {
+        if (timeline != null && timeline.getStatus() == Animation.Status.RUNNING) {
             timeline.stop();
             progressTimeline.stop();
         }
@@ -137,14 +144,21 @@ public class Controller implements Initializable {
 
     }
 
+    public void cancelProfile(ActionEvent actionEvent) {
+        x.window.close();
+    }
+
+    public void saveProfile(ActionEvent actionEvent) {
+
+    }
+
     public void continueSession() {
         progressTimeline.stop();
-        if (status == pomodoro.getProfile().getSessionTimeInMins() * 60){
+        if (status == pomodoro.getProfile().getSessionTimeInMins() * 60) {
             status = pomodoro.getProfile().getBreakTimeInMins() * 60;
             remainingTime = status;
             statusLabel.setText(Title.BREAK.getTitle());
-        }
-        else if(status == pomodoro.getProfile().getBreakTimeInMins() * 60){
+        } else if (status == pomodoro.getProfile().getBreakTimeInMins() * 60) {
             status = pomodoro.getProfile().getSessionTimeInMins() * 60;
             remainingTime = status;
             title = Title.FOCUS.getTitle();
@@ -152,6 +166,7 @@ public class Controller implements Initializable {
         }
         setTimerLabelText(status);
     }
+
     private void setTray() {
         this.tray.setTitle("Congratulations");
         this.tray.setMessage("You have finished" + statusLabel.getText());
