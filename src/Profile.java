@@ -1,9 +1,8 @@
-import javafx.fxml.FXML;
-
 import java.awt.*;
+import java.util.UUID;
 
 public class Profile {
-    long profileID;
+    String profileID;
     String profileName;
     Color profileColor;
     int sessionTimeInMins;
@@ -14,14 +13,16 @@ public class Profile {
 
 
     public Profile(String profileName, Color profileColor, int sessionTimeInMins, int breakTimeInMins, int longBreakTimeInMins) {
+        this.profileID = UUID.randomUUID().toString();
         this.profileName = profileName;
-        this.profileColor = profileColor;
+        this.profileColor = Color.getColor(String.valueOf(profileColor));
         this.sessionTimeInMins = sessionTimeInMins;
         this.breakTimeInMins = breakTimeInMins;
         this.longBreakTimeInMins = longBreakTimeInMins;
     }
 
     public Profile() {
+        this.profileID = UUID.randomUUID().toString();
         this.profileName = "Default";
         this.profileColor = Color.red;
         this.sessionTimeInMins = 25;
@@ -29,12 +30,20 @@ public class Profile {
         this.alarmSound = null;
     }
 
+    public String getProfileID() {
+        return profileID;
+    }
+
+    public void setProfileID(String profileID) {
+        this.profileID = profileID;
+    }
+
     public void setProfileName(String profileName) {
         this.profileName = profileName;
     }
 
-    public void setProfileColor(Color profileColor) {
-        this.profileColor = profileColor;
+    public void setProfileColor(String profileColor) {
+        this.profileColor = Color.getColor(profileColor);
     }
 
     public void setSessionTimeInMins(int sessionTimeInMins) {
@@ -44,10 +53,7 @@ public class Profile {
     public void setBreakTimeInMins(int breakTimeInMins) {
         this.breakTimeInMins = breakTimeInMins;
     }
-//TODO Long Break Time integration
-//    public void setLongBreakTimeInMins(int longBreakTimeInMins) {
-//        this.longBreakTimeInMins = longBreakTimeInMins;
-//    }
+
 
     public void setAlarmSound(AlarmSound alarmSound) {
         this.alarmSound = alarmSound;
@@ -57,8 +63,9 @@ public class Profile {
         return profileName;
     }
 
-    public Color getProfileColor() {
-        return profileColor;
+    public String getProfileColor() {
+        //FIXME: How do I add Colors
+        return " ";
     }
 
     public int getSessionTimeInMins() {
@@ -77,5 +84,17 @@ public class Profile {
         return alarmSound;
     }
 
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "profileID='" + profileID + '\'' +
+                ", profileName='" + profileName + '\'' +
+                ", profileColor=" + profileColor +
+                ", sessionTimeInMins=" + sessionTimeInMins +
+                ", breakTimeInMins=" + breakTimeInMins +
+                ", longBreakTimeInMins=" + longBreakTimeInMins +
+                ", alarmSound=" + alarmSound +
+                '}';
+    }
 }
 

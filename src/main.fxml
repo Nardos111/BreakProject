@@ -4,18 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="cssMain.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar prefHeight="20.0" prefWidth="196.0" style="-fx-background-color: white;">
+            <MenuBar fx:id="menubar" prefHeight="20.0" prefWidth="196.0" style="-fx-background-color: white;">
               <menus>
                 <Menu fx:id="profileMenu" mnemonicParsing="false" text="Profile">
                   <items>
                         <MenuItem mnemonicParsing="false" onAction="#defaultProfileHandler" text="Default Profile" />
-                        <MenuItem fx:id="profile" mnemonicParsing="false" onAction="#profile1Handler" text="Profile 1" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="addNew" mnemonicParsing="false" onAction="#addNewHandler" text="Add New..."/>
+                        <MenuItem fx:id="addNew" mnemonicParsing="false" onAction="#addNewHandler" text="Add New..." />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Stat">
