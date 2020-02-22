@@ -82,6 +82,7 @@ public class FlashcardViewController extends BaseController implements Initializ
             dialog.show();
         });
         deckC.setOnRemove(e -> {
+            // TODO: warn before removing
             Main.flashcard.remove(deck);
             Main.getNavigation().load(URL_FXML).Show();
         });

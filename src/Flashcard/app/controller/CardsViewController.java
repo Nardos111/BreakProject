@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,7 +39,7 @@ public class CardsViewController extends BaseController implements Initializable
 
     private Boolean flipped = false;
     private int atIndex = 0;
-    private List cardList;
+    private List cardList = new ArrayList();
     private String parameterFromFlashCard;
 
     public String getParameterFromFlashCard() {
@@ -65,7 +66,7 @@ public class CardsViewController extends BaseController implements Initializable
                 String sourceId = ((Control) eve.getSource()).getId();
                 if("btnCreate".equalsIgnoreCase(sourceId)){
                     cardList.add(new Card(db.txtKey.getText(), db.txtDesc.getText()));
-                      updateView();
+                    updateView();
                 }
                 dialog.close();
             });
@@ -76,27 +77,34 @@ public class CardsViewController extends BaseController implements Initializable
 
         btnRemove.setOnAction(e -> {
             // TODO: a popup to warn user before they remove a card
-            cardList.remove(atIndex);
-            this.btnNext.fire();
+            if(cardList.size() != 0){
+                cardList.remove(atIndex);
+                CardsViewController cards = (CardsViewController) Main.getNavigation().load(CardsViewController.URL_FXML);
+                cards.setParameterFromFlashCardView(parameterFromFlashCard);
+                cards.Show();
+            }
+
         });
 
         btnEdit.setOnAction(e -> {
-            String key = ((Card) cardList.get(atIndex)).getKey();
-            String desc = ((Card) cardList.get(atIndex)).getDescription();
+            if(cardList.size() != 0){
+                String key = ((Card) cardList.get(atIndex)).getKey();
+                String desc = ((Card) cardList.get(atIndex)).getDescription();
 
-            dialogBoxComponent db = new dialogBoxComponent(key, desc);
-            db.btn.setText("Edit");
-            db.setOnAction(eve -> {
-                String sourceId = ((Control) eve.getSource()).getId();
-                if("btnCreate".equalsIgnoreCase(sourceId)) {
-                    ((Card) cardList.get(atIndex)).setDescription(db.txtDesc.getText());
-                    ((Card) cardList.get(atIndex)).setKey(db.txtKey.getText());
-                }
-                dialog.close();
-            });
-            Scene dialogScene = new Scene(db, 360, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
+                dialogBoxComponent db = new dialogBoxComponent(key, desc);
+                db.btn.setText("Edit");
+                db.setOnAction(eve -> {
+                    String sourceId = ((Control) eve.getSource()).getId();
+                    if("btnCreate".equalsIgnoreCase(sourceId)) {
+                        ((Card) cardList.get(atIndex)).setDescription(db.txtDesc.getText());
+                        ((Card) cardList.get(atIndex)).setKey(db.txtKey.getText());
+                    }
+                    dialog.close();
+                });
+                Scene dialogScene = new Scene(db, 360, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            }
         });
 
         btnPrevious.setOnAction(e -> {
@@ -108,35 +116,37 @@ public class CardsViewController extends BaseController implements Initializable
         });
 
         btnFlip.setOnAction(e -> {
-            if (flipped) {
-                cardTextArea.setText(((Card) cardList.get(atIndex)).getKey());
-                cardTextArea.setDisable(true);
-                cardTextArea.setStyle("-fx-opacity: 1.0;");
-                flipped = false;
-            } else {
-                cardTextArea.setText(((Card) cardList.get(atIndex)).getDescription());
-                cardTextArea.setDisable(true);
-                cardTextArea.setStyle("-fx-opacity: 1.0;");
-                flipped = true;
+            if(cardList.size() != 0){
+                if (flipped) {
+                    updateView();
+                    flipped = false;
+                } else {
+                    cardTextArea.setText(((Card) cardList.get(atIndex)).getDescription());
+                    cardTextArea.setDisable(true);
+                    cardTextArea.setStyle("-fx-opacity: 1.0;");
+                    flipped = true;
+                }
             }
         });
 
         btnNext.setOnAction(e -> {
-            flipped = false;
-            if (atIndex < cardList.size() - 1) {
-                atIndex++;
-                cardTextArea.setText(((Card) cardList.get(atIndex)).getKey());
-                cardTextArea.setDisable(true);
-                cardTextArea.setStyle("-fx-opacity: 1.0;");
+            if(cardList.size() != 0){
+                flipped = false;
+                if (atIndex < cardList.size() - 1) {
+                    atIndex++;
+                    updateView();
+                }
             }
         });
     }
 
     @Override
     public void PreShowing() {
-        cardList = Main.flashcard.getDeck(parameterFromFlashCard).getCardList();
-        if(cardList.size() != 0){
-            updateView();
+        if(parameterFromFlashCard != null){
+            cardList = Main.flashcard.getDeck(parameterFromFlashCard).getCardList();
+            if(cardList.size() != 0){
+                updateView();
+            }
         }
     }
 
